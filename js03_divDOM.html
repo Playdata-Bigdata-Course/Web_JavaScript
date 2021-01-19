@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>
+    div라는 html 화면 분할 tag를 활용하여 동적 화면 구성하기
+    </h3>
+    1. div : 실질적인 화면에 보이지 않는 논리적으로 분할하는 tag<br>
+    2. css로 분할해서 스타일 적용, 동적화면 구성시 최적화된 화면으로 간주<br>
+    3. 주요 속성 : innerHTML, innerText
+
+    <div id="one" onclick="myFun()">div1</div>
+    <br><hr><br>
+    <div id="two" onclick="myFun2()">dvi2</div>
+    <br><hr><br>
+    <div id="three"></div>
+    <script>
+        function myFun2(){
+            document.getElementById("three").innerHTML = "<button>클릭</button>";
+        }
+
+        function myFun(){
+          let one = document.getElementById("one").innerText;
+          console.log(one);
+          //?div1 -> 이름
+          // one.innerText ="유재석"; js상에서의 변수값만 수정하는 원리 즉 html 화면 변경
+          document.getElementById("one").innerText = "유재석";
+    
+          //? two에 one이 보유하고 있었던 데이터 출력, one은 삭제
+          document.getElementById("two").innerText = one;
+
+
+          document.getElementById("two").innerText = document.getElementById("one").innerText;
+
+          document.getElementById("one").innerText = ""; //div one의 데이터값 삭제
+
+
+
+
+        }
+
+    </script>
+</body>
+</html>

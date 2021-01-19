@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+	google.charts.load('current', {'packages' : [ 'corechart' ]});
+	function chartView() {
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				let rawdata = JSON.parse(this.responseText);
+				var tmp = rawdata.DATA
+				var result = tmp.reduce( (acc, o) => (acc[o.line_num] = (acc[o.line_num] || 0)+1, acc), {} );
+				var resultarr = [["호선", "카운트"]];
+				var key = Object.keys(result);
+				for(var i = 0; i<key.length;i++){
+					resultarr.push([ key[i], result[key[i]] ]);
+				}
+				var data = google.visualization.arrayToDataTable(resultarr);
+				var options = {
+					title : '지하철 역사 호선별 개수'
+				};
+				var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+				chart.draw(data, options);
+			};
+		}
+		xhttp.open("GET", "dataRes.json", true);
+		xhttp.send();
+	}
+</script>
+</head>
+<body>
+<body>
+	<button onclick="chartView()">차트 표시</button>
+	<br>
+	<br>
+	<br>
+	<div id="piechart" style="width: 900px; height: 500px;"></div>
+</body>
+</body>
+</html>

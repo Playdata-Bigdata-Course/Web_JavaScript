@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+</head>
+<body>
+
+	<h2>Axios : 비동기 로직을 쉽게 개발 가능하게 해주는 library</h2>
+	1. cdn 방식으로 library 적용
+	<br><hr><br>
+	<button onclick="step02()">2클릭 : param test</button>
+	<button onclick="step03()">3클릭 : 화살표함수 test</button>
+	
+	<script type="text/javascript">
+	    /* axios로 응답 받았을 경우 json 객체 자체로 응답
+		    따라서 JSON.parse()와 같은 함수 사용해서 순수 문자열을 JSON 객체로 변환 불필요
+	    */
+	    //step01 : axios 기초사용 방식
+	    //서버가 응답하는 json 데이터를 별다른 가공없이 객체로 바로 사용가능
+	    //응답되는 데이터 구조는 js 리터럴 객체 형식 따라서 data 속성 이해 필수
+	function step01(){
+		axios.get('response.jsp ')
+		  .then(function (response) { // 정상 응답시 자동 실행되는 블록
+		    console.log("성공");
+		    console.log(response);
+		    console.log(response.data.name);//유재석
+		  })
+		  .catch(function (error) {  // 비정상 응답시 자동 실행되는 블록
+		    console.log("실패");
+		    console.log(error);
+		  });
+	}
+	 
+	//step02 : query string 을 서버에 전송
+	function step02(){
+		axios.get("response.jsp", {
+			params : {
+				name : "유재석",
+				age : 20
+			}
+		}).then(function(resData){
+			console.log(resData.data);
+			
+		}).catch(function(){
+			console.log("예외발생")
+		});
+	}
+	
+	//step03 : step02의 예제를 화살표 함수로 변환
+	function step03(){
+		axios.get("response.jsp", {
+			params : {
+				name : "유재석",
+				age : 10
+			}
+		}).then(resData => {
+			console.log(resData.data.age);
+		}).catch(error => {
+			console.log("예외발생" + error);
+		});
+	}
+	</script>
+</body>
+</html>

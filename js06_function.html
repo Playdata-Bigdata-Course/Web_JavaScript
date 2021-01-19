@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>다양한 함수 문법</h3>
+
+
+    <script>
+        function f1(){
+            console.log("f1()");
+        }
+        
+        f1();
+        f1(2);
+
+        console.log("---2---");
+        //익명함수, 함수 표현식을 하나의 변수에 대입    
+        let sum = function(x, y){
+            return x+y;
+        }
+        let data = sum(1, 2);
+        console.log(data);
+
+        //즉시 실행 함수 - 구현 & 호출
+        console.log("---3---");
+        (function f2(){
+            console.log("f2()");
+        }());
+        (function f3(v){
+            console.log("f3()" + v);
+        }("data"));
+
+        //익명함수를 콜백(등록.. 떄가되면 실행)함수로 등록해서 서용
+        //window 객체 내부에 setTimeout()
+
+        //body에 단순 출력하는 기능의 함수
+        //? 3초 후에 print() 함수 호출
+    //     setTimeout(print,3000);
+    //    function print(){
+    //     document.write("단순 출력 <br>");
+    //    } 
+       setTimeout(function(){
+        document.write("단순 출력 <br>");
+       },3000);
+
+    </script>
+</body>
+</html>

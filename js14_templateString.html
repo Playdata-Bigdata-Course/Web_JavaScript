@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    백틱 표기로 문자열 리터럴 형식으로 js 변수값도 하나의 문자열 내부에서 활용 가능한 기술
+    <script>
+
+        let data = "playdata";
+
+        //문자열 표현 형식
+        let a = "abc ${data} test"
+        console.log(a);
+
+        let b = "abc \
+        test";
+        console.log(b);
+        var dkd = "11";
+        let c = `abc ${data}
+        test`;
+        console.log(c);
+
+
+    </script>
+</body>
+</html>

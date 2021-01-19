@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    함수 학습<br>
+    1. API 제공 함수 <br>
+    2. 사용자 정의 함수<br>
+    <br><hr><br>
+    <!-- 버튼 클릭시 이름값 자동 갱신-->
+    <input type="type" id="name" value="초기값">
+    <input type="type" id="name2" value="유재석">
+
+    <button onclick="myfunc()">이름값으로 변경</button>
+
+    <button id ="bt"> bt</button>
+  
+    <br><hr><br>
+    <a href="https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_onclick_dom">참고 사이트</a>
+  
+    <script>
+        //step03 - 응용력 확장 ??
+        // 콜백 함수 등록
+        // 브라우저 내부에서 js실행 인터프리터가 인지는 하고 있으나 실질적인 버튼 클릭해야만
+        //즉시 실행하는 구조로 등록 개념으로 간주
+        document.getElementById("name").onclick = function(){myfunc();};
+
+
+        //step02 - 버튼 클릭시 실행되는 함수
+        function myfunc(){
+            //이미 존재하는 input tag의 value값을 변경
+            //구현 관점
+            //다양한 tag중에 input tag 검색 -> input tag의 value 속성값 수정
+            /*
+            document.getElementById("name")
+                document - html 문서 자체 의미한다고 간주, 모든 tag의 조상
+                getElementById() - id로 element 하나 검색해서 반환  
+            */
+            
+            // document.getElementById("name").value = "유재석";
+            var tmp = document.getElementById("name").value;
+            document.getElementById("name").value = document.getElementById("name2").value;
+            document.getElementById("name2").value = tmp;
+            document.getElementById("bt").onclick=()=>{myfunc();};
+
+        }
+        
+        
+
+
+
+
+
+
+
+
+        //step01
+        //경고 함수
+        //alert("확인만 해");
+        
+        //확인 함수 - 확인 버튼 클릭시 true 반환/취소 버튼 클릭시 false반환
+        // alert(confirm("확인? 취소?"));
+        
+        //NaN -Not a Number
+        //typeof() - 타입 확인 함수
+        console.log(parseInt("입력"));
+        console.log(parseInt("10"));
+        console.log(typeof(parseInt("10")));
+        console.log(typeof("10"));
+
+
+    </script>
+</body>
+</html>

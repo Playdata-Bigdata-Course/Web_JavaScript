@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h3> post 방식 Ajax</h3>
+	<button onclick="ajaxReq()">1. 비동기 요청 - csv형식으로 응답</button><br>
+	<button onclick="ajaxReq2()">2. 비동기 요청 - JSON형식으로 응답</button><br>
+	
+	
+	직업 : <div id="dataView"></div>
+	
+	<script type="text/javascript">
+		let xhr;
+		
+		function ajaxReq2(){
+			//요청 객체
+			xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+				if(this.readyState == 4 && this.status == 200){
+					//? 직업 출력 + 이미지도 같이 출력되게 해주세요
+					data = JSON.parse(this.responseText);
+					document.getElementById("dataView").innerHTML = data.job
+					+ "<img src='../img/정환GOD.jpeg'>";
+				}
+			};
+			xhr.open("POST", "responseJSON.jsp", true);
+			xhr.send();
+		}
+		
+		
+		function ajaxReq(){
+			//요청 객체
+			xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = resData;
+			xhr.open("POST", "response.jsp", true);
+//			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhr.send();
+		}
+		function resData(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				//csv 형식으로 응답 완료
+				//, 구분자로 문자열을 분해 (*) - split() 배열로 변환
+				data = xhr.responseText;
+				data = data.split(",");
+				document.getElementById("dataView").innerText = data[1];
+			}
+		}
+	</script>
+	
+</body>
+</html>

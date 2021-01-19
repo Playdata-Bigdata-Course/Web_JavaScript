@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <button id="btn">Click Me!</button>
+
+    <p id="demo"></p>
+
+    <script>
+        var hello;
+        hello = function () {
+            document.getElementById("demo").innerHTML = "test";
+        }
+                //The window object cal ls the function:
+        //이 로직이 브라우저 내부의 js엔진(인터프리터)이 실행 핧 경우 콜백으로 등록
+        //load되는 시점 : body end tag가 실행된 직후에 hello라는 변수가 보유식을 실행하는 콜백함수 등록 문법
+        // window.addEventListener("load", hello);
+
+        //? hello 호출 말고 익명 함수 구현 문법으로 두번째 parameter에 적용
+     
+        window.addEventListener("load", function(){document.getElementById("demo").innerHTML="으엑";});
+        //A button object calls the function:
+        //hello라는 함수 기능을 보유한 변수를 이벤트 콜백으로 등록
+        //client가 버튼 click할때 자동 실행되게 구현한 이벤트 콜백함수 
+        document.getElementById("btn").addEventListener("click", hello);
+    </script>
+
+    <br><hr><br>
+    <button onclick="hello2()">눌러주세엽</button>
+    <script>
+        function hello2(){
+            document.getElementById("demo").innerHTML = "이벤트 처리함수, 직접 호출";
+        }
+
+    </script>
+</body>
+
+</html>

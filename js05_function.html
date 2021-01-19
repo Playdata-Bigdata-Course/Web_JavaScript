@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3> js 함수 구현 문법</h3>
+    <br><hr><br>
+
+    <script>
+        function f1(){
+            console.log(2);
+        }
+        f1();
+        f1(1);
+        f1("일");
+        f1("일",2);
+
+        console.log(f2());
+        function f2(){
+            return 3;
+        }
+        /*  x는 변수
+            function() : 익명함수, 표현식
+            결론 : x는 표현식을 보유한 하나의 변수
+            호출식 : 식을 보유하고 있는 변수를 호출하는 것이나 값을 반영해야 하기 때문에
+                    함수 호출 하는 문법처럼 호출한다고 보시면 됩니다.            
+        */
+
+        console.log("--- 3 ---");
+        let x =function(){
+            console.log("call ?");
+        }
+        //?
+        // x;
+        x();
+
+        console.log("--- 4 ---");
+        let x2 =function(v){
+            console.log("call ?" + v);
+        }
+        x2("값");
+    </script>
+</body>
+</html>

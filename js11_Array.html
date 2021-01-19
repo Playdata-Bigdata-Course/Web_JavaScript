@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <p id="demo1"></p>
+    <p id="demo2"></p>
+    <p id="demo3"></p>
+
+
+    <br>
+    <hr><br>
+    <div id="demo4"></div>
+    <div id="q1"></div>
+    <script>
+        var fruits = ["Banana", "Orange", "Apple", "Mango"];
+        // document.getElementById("demo1").innerHTML = fruits;
+        // document.getElementById("demo2").innerHTML = fruits.pop();
+        // document.getElementById("demo3").innerHTML = fruits;
+
+        //반복해서 배열의 데이터 출력
+        //? 하단 주석처럼 demo4 id값의 div tag 영역의 브라우저에 출력해 주세요 
+        /* 반복하는 수 만큼 각 배열의 요소값들을 하나의 변수에 추가(add)
+        
+        */
+        //반복문 내에서 선언시 초기화를 방지하기 위해 반복문 선언 
+        // for (data in fruits) {
+        //     // document.write(fruits[data] + "<br>");
+
+        //     document.getElementById("demo4").innerHTML += data + "<br>";
+        // }
+        /*
+        Banana
+        Orange
+        Apple
+        Mango
+        */
+
+
+        // 배열
+        // for (const val of ['a', 'b', 'c']) {
+        //     console.log(val);// "a","b","c"
+        // }
+        // // 문자열
+        // for (const val of 'abc') {
+        //     console.log(val);//"a","b","c"
+        // }
+        // // Map
+        // for (const [key, value] of new Map([['a', '1'], ['b', '2'], ['c', '3']])) {
+        //     console.log(`key : ${key} value : ${value}`); // "key : a value : 1", "key : b value : 2", ...
+        // }
+        // // Set
+        // for (const val of new Set([1, 2, 3])) {
+        //     console.log(val);// 1, 2, 3
+        // }
+
+       // map()/forEach()/fillter()/reduce() 사용 필수 
+
+        
+        var a = "배우이름"
+        var b = "배역"
+        var KingTaejo = [
+            { a: "최수종", b: "왕건"  }, { a: "김영철", b: "궁예" },{ a: "서인석", b: "견훤" }];
+
+        var newArray = KingTaejo.map(object => object.b);
+        for (data of KingTaejo ){
+            document.getElementById("q1").innerHTML += newArray + "<br>"; 
+        }
+        console.log(newArray);
+    </script>
+</body>
+
+</html>

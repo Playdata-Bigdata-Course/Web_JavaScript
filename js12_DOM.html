@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>DOM을 기반으로 한 html 문서 구조 access하기</h3>
+    1. 기본 html 구조 개발 <br>
+    2. DOM api로 각 elemet or text 검색 및 활용 <br>
+    3. 상속 : 조상, 부모, 자식 관점에서 html 문서( 속성 상속 관계에서 예외) <br>
+
+    <hr><br>
+
+    <p id="one">
+        <p id="cat">
+            자식 text
+            <p id="dog">
+                멍멍
+            </p>
+        </p>
+    </p>
+    br 즉 new line은 html 관점에서 text 자식으로 간주
+    <script>
+        console.log(document.getElementsByTagName("p").length);
+        console.log(document.getElementsByTagName("p").item);
+        console.log(document.getElementsByTagName("p"));
+
+        console.log("--- 1 ---");
+        console.log(document.getElementsByTagName("p"));
+        console.log(document.getElementsByTagName("p")[0]);
+        console.log(document.getElementsByTagName("p")[1]);
+        console.log(document.getElementsByTagName("p")[2]);
+        console.log(document.getElementsByTagName("p")[3]);
+        console.log(document.getElementsByTagName("p")[4]);
+
+        console.log("--- 2 ---");
+        console.log(document.getElementsByTagName("p")[1]);
+        console.log(document.getElementsByTagName("p").innerText);//자식 text
+        
+        console.log("--- 3 --- : br로 발생된 new line도 text node로 인식");
+        console.log(document.getElementsByTagName("p").childNodes);//undefined js12_DOM.html:43 
+        console.log(document.getElementsByTagName("p")[0].childNodes);//NodeList 
+        console.log(document.getElementsByTagName("p")[1].childNodes);//NodeList 
+        console.log(document.getElementsByTagName("p")[2].childNodes);//NodeList 
+        console.log(document.getElementsByTagName("p")[0].childNodes.length);//1
+        console.log(document.getElementsByTagName("p")[1].childNodes.length);//1
+        console.log(document.getElementsByTagName("p")[2].childNodes.length);//1
+
+
+        console.log("--- 4 --- : html문서 순회하기");
+        //id가 one이 보유하고 있는 하위 자식 중에 p라는 tag를 찾아서 그 하위의 text 값 출력
+        console.log(document.getElementById("one").nodeName);//현 element 이름
+        console.log(document.getElementById("one").nodeValue);//null, text값에 한해서만 반환
+        console.log(document.getElementById("one").firstChild);//
+        console.log(document.getElementById("one").lastChild);//
+        console.log(document.getElementById("one").lastChild.previousSibling);//    
+    
+    
+    </script>
+</body>
+</html>

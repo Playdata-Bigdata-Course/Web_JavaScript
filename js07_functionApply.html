@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>함수 + 로직 응용</h3>
+    <script>
+        //? 접속된 client들이 공유하는 자원을 js만으로 개발해 보기
+        //요청로직 : 접속시에 몇명의 client가 접속되었는지 카운팅해 보기
+        /*
+        공통 데이터 저장 : 전역변수 or ?
+        접속시 1씩 증가 시키는 로직
+            : ++, 접속시 바로 실행되는 로직으로 개발
+            : 즉시 실행함수,  tag 로딩후에 바로 실행되는 콜백 함수 기능(onload)
+            :...
+        */
+        let n = localStorage.getItem('on_load_counter');
+        if (n === null) {
+            n = 0;
+        }
+        n++;
+        localStorage.setItem("on_load_counter", n);
+        console.log(n);
+        
+        let count = 0;
+
+        ( function accessCount(){
+            count = count+1;
+            console.log(count);
+        }());
+    </script>
+</body>
+</html>

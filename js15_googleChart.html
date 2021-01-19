@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- 외부 js 파일 인클루투드 하는 코드 라이브러리 별 별도 설정
+        주의사항 : start 와 end tag 사이에 내용이 없어도 분리해서 개발
+            왜? empty tag 개발시 library 인식 못하는 브라우저도 있다 함 -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        // eslint-disable-next-line no-unused-vars
+        function chartView(){
+            // eslint-disable-next-line no-undef
+            google.charts.load('current', { 'packages': ['corechart'] });
+            // eslint-disable-next-line no-undef
+            google.charts.setOnLoadCallback(drawChart); //콜백함수 등록
+        }
+
+
+        let datalist = [
+            ['Task', 'Hours per Day'],
+            ['Work', 11],
+            ['Eat', 2],
+            ['Commute', 2],
+            ['Watch TV', 2],
+            ['Sleep', 7]
+        ];
+
+        // eslint-disable-next-line no-unused-vars
+        function addData(){
+            datalist.push([document.getElementById('name').value, parseInt(document.getElementById('number').value)])
+            chartView()
+        }
+
+        function getDataList() {
+            return datalist
+        }
+
+
+        function drawChart() {
+            // eslint-disable-next-line no-undef
+            let data = google.visualization.arrayToDataTable(getDataList());
+
+            let options = {
+                title: '재웅 짱'
+            };
+
+            // eslint-disable-next-line no-undef
+            let chart = new google.visualization.PieChart(document.getElementById('piechart'));
+            chart.draw(data, options);
+        }
+
+    </script>
+</head>
+
+<body>
+    <div id="piechart" style="width: 900px; height: 500px;"></div>
+    <br><hr><br>
+    항목 : <input type="text" name="name" id="name">
+    숫자 : <input type="number" name="number" id="number">
+    </form>
+    <button onclick="addData()">데이터 삽입</button>
+    <button onclick="chartView()">클릭시 chart 새성</button>
+</body>
+
+</html>
+
+<!-- 버튼 클릭시 감지하는 이벤트 핸들러 속성 : onclick 
+    <button id="btn">..
+        document.getElementById("btn").addEventListener("click", 함수);   
+
+    2. 브라우저에 보여졌을 떄(실행, 렌더링, 로딩)되었을 떄를 감지하는 이벤트 핸들러 속성 : onload
+    </body> 가 실행시 로직 호출
+-->
+
+    

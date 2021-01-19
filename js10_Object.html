@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h2>사용자 정의 객체 생성 및 활용 방법</h2>
+
+    1. java - 객체 지향(class : 데이터-변수, 기능-메소드)<br>
+    2. java script - 객체 기반(독립적으로 함수 개발도 가능, class 기반의 객체 생성,
+    제공받는 API로 new로 생성, 단순 데이터 표현법으로 객체)
+    3. js 속성 용어 - variable, property, attribute
+    <script>
+        //key와 value로 데이터 구분하는 형태의 객체 생성 및 활용
+        console.log("--- 1 : JSON 방식의 객체 ---");
+        //JSON[Java Script Object Notation] 객체
+        let obj1 = { "name": "백종원", "age": 20 }
+        console.log(obj1);
+        //속성 추가
+        obj1.address = "seoul";
+        //속성 삭제
+        delete obj1.name;
+
+        //객체 리터럴 방식
+        console.log("--- 2 : 객체 리터럴 방식의 객체 ---");
+        let obj2 = { name: "유재석", "age": 20 }
+        console.log(obj2);
+        console.log(obj2.name);
+
+        //서버가 응답한 데이터 포멧 가공이라 간주
+        let obj3 = {
+            "employees": [
+                { "firstName": "John", "lastName": "Doe" },
+                { "firstName": "Anna", "lastName": "Smith" },
+                { "firstName": "Peter", "lastName": "Jones" }
+            ]
+        }
+
+        console.log(obj3.employees[0].firstName);
+        //서버에서 응답되는 데이터는 문자열로 브라우저는 간주
+        //문자열을 js 객체로 변환해서 key로 value값들 사용해야 함
+        //? 일반 문자열을 json 객체로 변환하는 함수 사용해서 John만 출력하세요
+        let obj4 = '{"employees": [{ "firstName": "John", "lastName": "Doe" }, { "firstName": "Anna", "lastName": "Smith" }, { "firstName": "Peter", "lastName": "Jones" }]}'
+        //일반 문자열(단, json으로 변환 가능한 문자열에 한해서 만)을 json객체로 변환하는 함수
+        obj4 = JSON.parse(obj4);
+
+        let obj5 = "{'name':'John', 'age':30,'city':'New York'}";
+        //java script 객체로 변환하는 독특한 함수
+        //특이사항 : json 객체로 변환시에만 () 적용해서 변환해야 함 
+        // key와 value가 쌍따옴표로 구성된 형태의 문자열을 json 객체로 변환시에는 JSON.parse() 권장
+        obj5 = eval("(" + obj5 + ")");
+        console.log(obj5.name);
+    </script>
+
+    <br><hr><br>
+    <h3>eval() 함수 이해하기</h3>
+
+    <div id="view1"></div>
+    <script>
+       // eval("document.write(1)");
+        console.log("2+4"); // 2+4
+        console.log(eval("2+4")); // 6
+    </script>
+
+    
+</body>
+
+</html>

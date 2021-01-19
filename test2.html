@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var playerscore = 0;
+        var dealerscore = 0;
+
+        function endRound() {
+
+            var i, d, p, tmp;
+
+            // Enable/disable buttons.
+
+            document.forms["controls"].elements["deal"].disabled = false;
+            EnableBetButtons();
+            DisablePlayButtons();
+
+            // Fix for IE 6 rendering bug.
+
+            if (navigator.userAgent.indexOf("MSIE 6") >= 0) {
+                dealer.cardsNode.firstChild.style.backgroundImage = "none";
+                dealer.cardsNode.firstChild.style.backgroundColor = "white";
+            }
+
+            // Show the dealer's down card and score.
+
+            dealer.cardsNode.firstChild.firstChild.style.visibility = "";
+            d = dealer.getScore();
+            if (!dealer.blackjack && d <= 21)
+                dealer.scoreTextNode.nodeValue = d;
+
+            // Show result of each player hand and pay it off, if appropriate.
+
+            for (i = 0; i < numPlayerHands; i++) {
+                p = player[i].getScore();
+                if (player[i].surrender) {
+                    player[i].resultTextNode.nodeValue = "Player Surrendered";
+                    player[i].bet /= 2;
+                    credits += player[i].bet;
+                }
+                else if ((player[i].blackjack && !dealer.blackjack) ||
+                    (p <= 21 && d > 21) || (p <= 21 && p > d)) {
+                    player[i].resultTextNode.nodeValue = "Player Wins";
+                    tmp = 2 * player[i].bet;
+
+                    // Blackjack pays 3 to 2.
+
+                    if (player[i].blackjack)
+                        tmp += player[i].bet / 2;
+
+                    player[i].bet = tmp;
+                    credits += player[i].bet;
+                }
+                else if ((dealer.blackjack && !player[i].blackjack) ||
+                    p > 21 || p < d) {
+                    player[i].resultTextNode.nodeValue = "Player Loses";
+                    addClassName(player[i].betTextNode.parentNode, "lost");
+                }
+                updateBetDisplay(i);
+            }
+        }
+    </script>
+
+</body>
+
+</html>

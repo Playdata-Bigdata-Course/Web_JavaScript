@@ -1,0 +1,157 @@
+<!DOCTYPE h<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>chart03myArt.html</title>
+
+</head>
+<body>
+
+	<button onclick="Test()">chart 그리기</button>
+
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript">
+	data = [['line_num','howMany']];
+		function Test() {
+			var xhttp = new XMLHttpRequest();
+
+			xhttp.onreadystatechange = function() {
+
+				if (this.readyState == 4 && this.status == 200) {
+					let list = [];
+					let read = JSON.parse(this.responseText);
+					
+					for (let i = 0; i < read.DATA.length; i++) {
+						list.push(read.DATA[i].line_num);
+					}
+					
+					const result = list.reduce((object, currentValue) => {
+					    if (!object[currentValue]) {
+					        object[currentValue] = 0;
+					    }
+					    object[currentValue]++;
+					    return object;
+					}, {});
+					
+					for(let res in result){
+						data.push([res,result[res]]);
+					}
+				}
+			};
+			
+			
+			
+			xhttp.open("GET", "dataRes.json", true);
+			xhttp.send();
+			chartPrint();
+			document.getElementById("barchart").innerHTML = '<button onclick="barChartPrint()">다음 그래프는 바그래프</button>';
+		};
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		function chartPrint() {
+			google.charts.load('current', {'packages' : [ 'corechart' ]});
+			google.charts.setOnLoadCallback(drawChart);
+		}
+		
+		function drawChart() {
+			dataPrint(data);
+		}
+
+		function dataPrint(v) {
+			var data = google.visualization.arrayToDataTable(v);
+
+			var options = {
+				title : '몇호선이 가장 많을까?'
+			};
+
+			var chart = new google.visualization.PieChart(document
+					.getElementById('piechart'));
+
+			chart.draw(data, options);
+		}
+		
+		//바그래프
+		function barChartPrint(){
+	    	google.charts.load("current", {packages:["corechart"]});
+	    	google.charts.setOnLoadCallback(drawBarChart);
+			document.getElementById("colchart").innerHTML = '<button onclick="colChartPrint()">다음 그래프는 컬럼그래프</button>';
+		}
+		
+		function drawBarChart(){
+			barPrint(data);
+		}
+		
+		function barPrint(v){
+			var view = google.visualization.arrayToDataTable(v);
+
+			var options = {
+	        	title: "바그래프여~",
+	        	width: 800,
+	        	height: 400,
+	        	bar: {groupWidth: "120%"},
+	        	legend: { position: "none" },}
+		
+	      var chart = new google.visualization.BarChart(document.getElementById("barchart"));
+	      chart.draw(view, options);
+	   }
+		
+	   //다음 그래프
+	   	function colChartPrint(){
+			google.charts.load("current", {packages:['corechart']});
+    		google.charts.setOnLoadCallback(drawColChart);
+	   }
+	   
+	   function drawColChart(){
+		   colPrint(data);
+	   }
+	   
+	   function colPrint(v){
+		   var view = google.visualization.arrayToDataTable(v);
+		   
+      		var options = {
+        		title: "컬럼 그래프이올시다",
+	        	width: 800,
+	        	height: 700,
+	        	bar: {groupWidth: "120%"},
+	        	legend: { position: "none" },
+      		};
+      	
+	      	var chart = new google.visualization.ColumnChart(document.getElementById("colchart"));
+	      	chart.draw(view, options);
+		   
+	   }
+	   
+	   
+	</script>
+</head>
+<body>
+	<div id="piechart" style="width: 900px; height: 500px;"></div>
+	<div id="barchart" style="width: 900px; height: 400px;"></div>
+	<div id="colchart" style="width: 900px; height: 500px;"></div>
+</body>

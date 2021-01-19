@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>requestPost.html</title>
+</head>
+<body>
+	<h3>post방식 Ajax</h3>
+
+	<button onclick="ajaxReq1()">1. 비동기 요청 - csv형식으로 응답</button><br>
+	<button onclick="ajaxReq2()">2. 비동기 요청 - JSON형식으로 응답</button>	<br>
+	<button onclick="ajaxReq3Dept()">3. 비동기 요청 - 모든 Dept table 정보검색</button><br>
+	 직업 :<div id="dataView1"></div><br>
+	 직업 :<div id="dataView2"></div><br> 
+	테이블:<div id="dataView3"></div>
+	<br><hr><br>
+	<script type="text/javascript">
+		let xhr;
+		
+		function ajaxReq1(){
+			xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = resData1;
+			xhr.open("POST", "response.jsp", true);
+		//	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhr.send();
+		}
+		
+		function resData1(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				//csv 형식으로 응답 완료
+				//, 구분자로 문자열을 분해 - split() 배열로 반환
+				var data = xhr.responseText.split(",");
+				document.getElementById("dataView1").innerText = data[1];
+			}
+		}
+		
+		function ajaxReq2(){
+			xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = resData2
+			xhr.open("POST", "responseJSON.jsp", true);
+			xhr.send();
+		}
+		function resData2(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				data = JSON.parse(this.responseText);
+				document.getElementById("dataView2").innerHTML= data.job 
+				+ "<img src='../img/유재석.jpg' width='50%'>"; 
+			}
+		}
+		//controller -> 요청 구분 -> biz -> 응답데이터 -> jsp를 통해서 출력 
+		//간단 test : jsp하나로만 처리
+		function ajaxReq3Dept() {
+			xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = ajaxReq3
+			xhr.open("POST", "responseDEPT.jsp", true);
+			xhr.send();
+		}
+		function ajaxReq3(){
+				if(this.readyState == 4 && this.status == 200){
+				document.getElementById("dataView3").innerHTML=this.responseText;
+			}
+		};
+	</script>
+
+</body>
+</html>

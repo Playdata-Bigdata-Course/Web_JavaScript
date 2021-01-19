@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="one">
+        <div id="cat">
+            자식
+            <div id="dog">
+                멍멍
+            </div>
+        </div>
+    </div>
+
+    <script>
+        //p는 단락 tag : 단ㄹ학 내부에 단락 보유는 고려
+        // 고려사항 : dom으로 제어 가능한 tree 구조가 제약받는 듯한 느낌
+        console.log(document.getElementById("one").firstChild.nodeName[1]);
+        console.log(document.getElementById("one"));
+        console.log(document.getElementById("one"));
+        console.log(document.getElementById("one").nodeName);
+        console.log(document.getElementById("one").firstChild);
+        console.log(document.getElementById("one").lastChild);
+        console.log(document.getElementById("one").lastChild.previousSibling);
+
+
+        console.log(document.getElementById("dog").firstChild);
+
+
+        console.log(document.getElementById("one"));
+        setTimeout(() => {document.getElementById("dog").previousSibling.nodeValue = "유재석";}, 5000);
+       
+    </script>
+</body>
+</html>

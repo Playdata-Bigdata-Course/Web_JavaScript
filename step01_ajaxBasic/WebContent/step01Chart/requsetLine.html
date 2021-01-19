@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+</head>
+
+<body>
+
+	<h2>비동기 기술 학습(ajax)</h2>
+	1. 버튼 클릭시 서버에 요청, 이름값 응답 받아서 div tag에 출력
+	<br>
+	<hr>
+	<br>
+
+	<div id="demo"></div>
+	<button onclick="loadDoc()">비동기</button>
+	<script type="text/javascript"src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript">
+	google.charts.load('current', {'packages' : [ 'corechart' ]});
+		function loadDoc() {
+
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+
+				if (this.readyState == 4 && this.status == 200) {
+					
+					document.getElementById("demo").innerHTML = data;
+					
+					var rawdata = JSON.parse(this.responseText);
+					
+					var array = [];
+					var resultobj = {};
+					for(let line of rawdata.DATA){
+						if(array.includes(line.line_num)){
+							resultobj[line.line_num]++;
+						} else{
+							resultobj[line.line_num] = 1;
+						}
+						array.push(line.line_num);
+					}
+					var resultarr = [];
+					for(let key in resultobj){
+						resultarr.push([key, resultobj[key]]);
+					} 
+					console.log(resultarr);
+				}
+			};
+			var data = google.visualization.arrayToDataTable(eval(resultarr));
+			var options = {
+					title : ''
+				};
+				var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+				chart.draw(data, options);
+
+			xhttp.open("GET", "dataRes.json", true);
+			xhttp.send();
+		}
+	</script>
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+	google.charts.load('current', {'packages' : [ 'corechart' ]});
+	let rawdata = JSON.parse(this.responseText);
+	
+	var array = [];
+	var resultobj = {};
+	for(var line of rawdata.DATA){
+		if(array.includes(line.line_num)){
+			resultobj[line.line_num]++;
+		} else{
+			resultobj[line.line_num] = 1;
+		}
+		array.push(line.line_num);
+	}
+	var resultarr = [];
+	for(let key in resultobj){
+		resultarr.push([key, resultobj[key]]);
+	} 
+
+	function chartView() {
+		google.charts.load('current', {'packages' : [ 'corechart' ]});
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+			var data = google.visualization.arrayToDataTable(resultarr);
+			var options = {
+				title : '하루 일과'
+			};
+			var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+			chart.draw(data, options);
+				
+			}
+		};
+		xhttp.open("GET", "dataRes.json", true);
+		xhttp.send();
+	}
+
+</script>
+</body>
+
+</html>

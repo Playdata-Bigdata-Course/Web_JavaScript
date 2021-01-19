@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>requestPost.html</title>
+</head>
+<body>
+	<h3>post방식 Ajax</h3>
+	
+	<button onclick="ajaxReq()">비동기 요청</button> <br>
+	<div id="dataView"></div>
+	
+	<script type="text/javascript">
+		let xhr;
+		
+		function ajaxReq(){
+			//요청 객체
+			xhr = new XMLHttpRequest();
+			//속성에 요청~응답 완료까지 감지하는 로직 구현
+			
+			xhr.onreadystatechange = resData;
+			
+			//xhr.open("POST", "response.jsp", true);
+			
+			//POST방식
+			xhr.open("POST", "response.jsp", true);
+			
+			//POST 방식으로 query string 전송시 필수로 셋팅, 생략시 데이터 전송이 불가
+			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			//POST 방식인 경우 query string 적용 기술
+			xhr.send("name=kim&age=20");
+		}
+		
+		function resData(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				document.getElementById("dataView").innerText = xhr.responseText;
+			}
+		}
+	</script>
+	
+</body>
+</html>
